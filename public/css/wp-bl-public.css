@@ -2,3 +2,10 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+.entry-content h3.card-title, h3.card-title {
+    font-size: 1.1rem;
+    color: #fff;
+}
+.entry-content h3.card-title, h3.card-title {
+    margin-bottom: .75rem;
+}
