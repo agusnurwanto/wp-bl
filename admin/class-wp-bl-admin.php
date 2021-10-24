@@ -103,13 +103,82 @@ class Wp_Bl_Admin {
 
 	}
 
+	public function generatePage($options){
+		if(
+			empty($options['title'])
+			|| empty($options['content'])
+		){
+			return false;
+		}
+		$nama_page = $options['title'];
+		$content = $options['content'];
+		$status = 'private';
+		if(!empty($options['status'])){
+			$status = $options['status'];
+		}
+		$update = false;
+		if(!empty($options['update'])){
+			$update = $options['update'];
+		}
+
+
+		$custom_post = get_page_by_title($nama_page, OBJECT, 'page');
+		$_post = array(
+			'post_title'	=> $nama_page,
+			'post_content'	=> $content,
+			'post_type'		=> 'page',
+			'post_status'	=> $status,
+			'comment_status'	=> 'closed'
+		);
+		if (empty($custom_post) || empty($custom_post->ID)) {
+			$id = wp_insert_post($_post);
+			$_post['insert'] = 1;
+			$_post['ID'] = $id;
+			$custom_post = get_page_by_title($nama_page, OBJECT, 'page');
+
+			// post meta for astra theme
+			update_post_meta($custom_post->ID, 'ast-breadcrumbs-content', 'disabled');
+			update_post_meta($custom_post->ID, 'ast-featured-img', 'disabled');
+			update_post_meta($custom_post->ID, 'ast-main-header-display', 'disabled');
+			update_post_meta($custom_post->ID, 'footer-sml-layout', 'disabled');
+			update_post_meta($custom_post->ID, 'site-content-layout', 'page-builder');
+			update_post_meta($custom_post->ID, 'site-post-title', 'disabled');
+			update_post_meta($custom_post->ID, 'site-sidebar-layout', 'no-sidebar');
+			update_post_meta($custom_post->ID, 'theme-transparent-header-meta', 'disabled');
+		}else if($update){
+			$_post['ID'] = $custom_post->ID;
+			wp_update_post( $_post );
+			$_post['update'] = 1;
+		}
+		return $this->get_link_post($custom_post);
+	}
+
+	public function get_link_post($custom_post){
+		$link = get_permalink($custom_post);
+		return $link;
+	}
+
 	public function crb_attach_wp_bl_options() {
+		$url_singkronisasi_lpse = $this->generatePage(array(
+			'title' => 'AdminLTE chart page', 
+			'content' => '[adminlte_chart_page]',
+			'status' => 'publish'
+		));
 		$basic_options_container = Container::make( 'theme_options', __( 'CRB Options' ) )
 			->set_page_menu_position( 4 )
 	        ->add_fields( array(
 	        	Field::make( 'text', 'crb_wp_bl_text', 'Carbon field type text' )
-	            	->set_default_value('ini default value')
+	            	->set_default_value('ini default value'),
+	            Field::make( 'html', 'crb_wp_bl_adminlte' )
+	            	->set_html( '<a target="_blank" href="'.$url_singkronisasi_lpse.'">Halaman AdminLTE chart page.</a>' )
 	    	) );
+	}
+
+	public function adminlte_chart_page(){
+		if(!empty($_GET) && !empty($_GET['post'])){
+			return '';
+		}
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/wp-bl-adminlte-chart-page.php';
 	}
 
 }

@@ -157,7 +157,11 @@ class Wp_Bl {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		// carbonfields hook
 		$this->loader->add_action( 'carbon_fields_register_fields', $plugin_admin, 'crb_attach_wp_bl_options' );
+
+		// shortcode
+		add_shortcode('adminlte_chart_page', array($plugin_admin, 'adminlte_chart_page'));
 
 	}
 

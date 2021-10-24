@@ -15,7 +15,8 @@ Plugin wordpress untuk bahan pembelajaran. Artikel lengkap ada di https://smkasi
 
 ### Cara pakai plugin
 - Install wordpress
-- Install plugin ini dan aktifkan
+- Direkomendasikan untuk install dan gunakan [Astra theme](https://wordpress.org/themes/astra/)
+- Install plugin **wp-bl** dan aktifkan
 
 ### Permintaan fitur
 - User umum bisa request penambahan fitur dengan membuat issue
