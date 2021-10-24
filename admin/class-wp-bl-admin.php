@@ -20,6 +20,9 @@
  * @subpackage Wp_Bl/admin
  * @author     Agus Nurwanto <agusnurwantomuslim@gmail.com>
  */
+use Carbon_Fields\Container;
+use Carbon_Fields\Field;
+
 class Wp_Bl_Admin {
 
 	/**
@@ -98,6 +101,15 @@ class Wp_Bl_Admin {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-bl-admin.js', array( 'jquery' ), $this->version, false );
 
+	}
+
+	public function crb_attach_wp_bl_options() {
+		$basic_options_container = Container::make( 'theme_options', __( 'CRB Options' ) )
+			->set_page_menu_position( 4 )
+	        ->add_fields( array(
+	        	Field::make( 'text', 'crb_wp_bl_text', 'Carbon field type text' )
+	            	->set_default_value('ini default value')
+	    	) );
 	}
 
 }

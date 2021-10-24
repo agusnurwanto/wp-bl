@@ -157,6 +157,8 @@ class Wp_Bl {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		$this->loader->add_action( 'carbon_fields_register_fields', $plugin_admin, 'crb_attach_wp_bl_options' );
+
 	}
 
 	/**
