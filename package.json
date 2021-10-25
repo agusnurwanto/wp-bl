@@ -1,0 +1,26 @@
+{
+  "name": "easy-digital-downloads",
+  "version": "2.11.2.1",
+  "private": true,
+  "devDependencies": {
+    "grunt": "^1.4.1",
+    "grunt-checktextdomain": "^1.0.1",
+    "grunt-cli": "^1.4.3",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-compress": "^2.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^4.0.0",
+    "grunt-contrib-uglify": "^5.0.1",
+    "grunt-force-task": "^3.0.0",
+    "grunt-replace": "^2.0.2",
+    "grunt-wp-i18n": "^1.0.3",
+    "load-grunt-tasks": "^5.1.0",
+    "makepot": "^0.3.0"
+  },
+  "engines": {
+    "npm": ">=6.9.0"
+  },
+  "scripts": {
+    "build": "bash bin/update-stripe.sh && grunt build"
+  }
+}
